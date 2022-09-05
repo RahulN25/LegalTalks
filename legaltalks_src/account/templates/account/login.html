@@ -1,0 +1,74 @@
+{% extends 'account/authBase.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css_file %}
+    href="{% static 'account/login.css' %}"
+{% endblock css_file %}
+
+{% block title %}
+    LegalTalks | Login
+{% endblock title %}
+
+{% block layout_classes %}<div class="col-lg-5 col-md-8 col-sm-11">{% endblock layout_classes %}
+
+{% block form_content %}
+    {# Logo #}
+    <a href="{% url 'home' %}" ><img src="{% static 'forum/legaltalks_logo.png' %}" class="img-responsive center-block d-block mx-auto mt-3" style="height: 15%; width: 15%;"></a>
+
+    {# LegalTalks Heading #}
+    <h4 class="text-center mt-3" style="color: #dadada;">Welcome to LegalTalks!</h4>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="bg-transparent d-block mx-auto text-center text-danger mt-4 p-2 border border-danger">
+                {% comment %} {% for error in form.email.errors %} {% endcomment %}
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>&nbsp;Email or Password is invalid .
+                {% comment %} {{ error }} {% endcomment %}
+                {% comment %} {% endfor %} {% endcomment %}
+            </div>
+        {% endif %}
+        <div class="form-group mt-3">
+            {# Email Address #}
+            <label for="auth-email">Email :</label>
+            {% render_field form.username class="form-control" id="auth-email" aria-describedby="emailHelp" placeholder="someone@example.com" autofocus="autofocus" %}
+            
+            {# <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"> #}
+        </div>
+
+        <div class="form-group mt-3">
+            {# Password #}
+            <label for="auth-password">Password :</label>
+            {% render_field form.password class="form-control" id="auth-password" %}
+            {# <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"> #}
+        </div>
+
+        <div class="text-center">
+            {# Login Button #}
+            <button type="submit" class="btn btn-success mt-3" style="width: 100%;">Login</button>
+        </div>
+
+        <div class="mt-3">
+            {# Don't have an account? Sign Up Link #}
+            <p>Don't have an account?&nbsp;<a href="{% url 'account:user-signup' %}" style="color: #28a745;">Sign Up</a></p>
+        </div>
+    </form>
+{% endblock form_content %}
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+</head>
+<body>
+    Log In
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.username }}
+        {{ form.password }}
+        <input type="submit" value="Log In">
+    </form>
+</body>
+</html> {% endcomment %}

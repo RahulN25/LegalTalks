@@ -1,0 +1,30 @@
+body{
+    color: #cfcfcf !important;
+    background-color: #181818 !important;
+}
+
+input{
+    color: #cfcfcf !important;
+    background-color: #393839 !important;
+    border: 0.01px solid #616161 !important;
+}
+
+input::placeholder{
+    color: #cfcfcf !important;
+}
+
+.card{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 1px solid gray !important;
+    border-radius: 2.5% !important;
+    background-color: #262626 !important;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+
+.loginContent{
+    padding: 40px;
+}
