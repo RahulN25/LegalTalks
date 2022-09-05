@@ -1,0 +1,81 @@
+{% extends 'account/authBase.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css_file %}
+    href="{% static 'account/profileCreation.css' %}"
+{% endblock css_file %}
+
+{% block title %}
+    LegalTalks | Profile Sign Up
+{% endblock title %}
+
+{% block layout_classes %}
+    <div class="col-lg-6 col-md-8 col-sm-12">
+{% endblock layout_classes %}
+
+{% block form_content %}
+    {# Logo #}
+    <img src="{% static 'forum/legaltalks_logo.png' %}" class="img-responsive center-block d-block mx-auto" style="height:10%; width:10%;">
+
+    <h4 class="text-center mt-3" style="color: #007bff;">Just few more details</h4>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {# Gender #}
+        <div>
+            <label class="my-1 mr-2" for="gender">Gender :</label>
+            {% render_field form.gender class="custom-select my-1 mr-sm-2" id="gender" %}
+        </div>
+
+        <div class="form-group mt-3">
+            {# Date of Birth #}
+            <label for="dob">Date of Birth :</label>
+            {% render_field form.birth_date class="form-control" id="dob" %}
+        </div>
+
+        {% if form.phone_number %}
+            <div class="form-group mt-3">
+                {# Phone Number #}
+                <label for="phone-number">Phone Number :</label>
+                {% render_field form.phone_number class="form-control" id="phone-number" placeholder="Phone Number"%}
+            </div>
+            {% if form.phone_number.errors %}
+                <div class="bg-transparent d-block mx-auto text-danger mt-2 p-2 border border-danger">
+                    {% for error in form.phone_number.errors %}
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        {% render_field error %}<br>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <div class="file-upload-wrapper mt-3" data-text="Click here to add profile">
+            {# Upload Profile Picture #}
+            <label for="profileimg">Add Profile Picture (Optional) :</label>
+            {% render_field form.profile_image name="file-upload-field" class="file-upload-field form-control"  id="profileimg" %}
+        </div>
+
+        {# Join Now Button#}
+        <div class="mt-3">
+            <button type="submit" class="btn btn-outline-success mt-3" style="width: 100%;">Join Now</button>
+        </div>
+    </form>
+{% endblock form_content %}
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Profile</title>
+</head>
+<body>
+    Just a few more details
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Join Now">
+    </form>
+</body>
+</html> {% endcomment %}
