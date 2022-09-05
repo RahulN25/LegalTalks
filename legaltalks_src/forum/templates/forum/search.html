@@ -1,0 +1,78 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block css_file %}
+    href="{% static 'forum/search.css' %}"
+{% endblock css_file %}
+
+{% block title %}LegalTalks | Search Results for {% for keyword in keywords %}{{ keyword }} {% endfor %}{% endblock title %}
+
+{% block active_nav_link %}
+    {# ---- Home Nav ----- #}
+    <li class="nav-item active navs">
+        {# -Done Balance - href in below tag #}
+        <a class="nav-link" href="{% url 'home' %}" data-toggle="tooltip" data-placement="bottom" title="Home"><i
+                class="fa fa-home"></i></a>
+    </li>
+
+    {# Your Content Nav #}
+    <li class="nav-item active navs">
+        {# Done - Balance - href in below tag #}
+        <a class="nav-link" href="{% url 'forum:your-content' %}" data-toggle="tooltip" data-placement="bottom" title="Your Content"><i
+                class="fa fa-edit"></i></a>
+    </li>
+
+    {# Profile Nav #}
+    <li class="nav-item active navs">
+        {# Done - Balance - href in below tag #}
+        <a class="nav-link nav-profile" href="{% url 'account:my-profile' %}" data-toggle="tooltip" data-placement="bottom" title="Profile">
+            {% if user.is_authenticated %}
+                {% if user.is_advocate %}
+                    <img class="img-fluid rounded-circle" src="{{ user.userprofile.profile_image.url }}">
+                {% else %}
+                    <img class="img-fluid rounded-circle" src="{{ user.commonuserprofile.profile_image.url }}">
+                {% endif %}
+            {% else %}
+                <i class="fa fa-user-circle"></i>
+            {% endif %}
+        </a>
+    </li>
+{% endblock active_nav_link %}
+
+{% block main_content %}
+    <div class="container-fluid">
+        <div class="row justify-content-center search-result-row">
+            <div class="col-lg-8 col-md-8 col-md-12">
+                {% if not keywords %}
+                    <h5>Please search using the Keywords related to your Query using the Search Bar above.</h5>
+                {% else %}
+                    <h5>Question Search Results For - "{% for keyword in keywords %} {{ keyword }} {% endfor %}"</h5>
+                {% endif %}
+                <hr>
+                {% if results %}
+                    {% for question, degree in results %}
+                        <div class="question-search-card">
+                            <div class="card">
+                                <div>
+                                    {# Question Detailer View Link #}
+                                    <a href="{% url 'forum:question-detail' question.id %}">
+                                        {# Question Title #}
+                                        <h6 style="font-weight: 700;">{{ question.question_title|linebreaksbr }}</h6>
+                                        {# Question Category Badge #}
+                                        <span id="category-of-question" class="badge badge-dark">{{ question.get_category_display }}</span>
+                                        <br>
+                                        <hr class="mb-3" style="border: 0; display:block; width: 100%; background-color: #616161; height: 1px;">
+                                        {# Question Detail #}
+                                        <p>{{ question.question_body|linebreaksbr }}</p>
+                                    </a>
+
+                                    {# Total Number of Answers #}
+                                    <span id="number-of-answers"> Answers > {{ question.answer_count }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}

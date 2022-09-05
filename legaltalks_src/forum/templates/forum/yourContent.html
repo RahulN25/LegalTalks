@@ -1,0 +1,224 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block css_file %}
+    href="{% static 'forum/yourContent.css' %}"
+{% endblock css_file %}
+
+{% block title %}LegalTalks | Your Content{% endblock title %}
+
+{# Done - Balance #}
+{% block active_nav_link %}
+    {# ---- Home Nav ----- #}
+    <li class="nav-item active navs">
+        {# -Done Balance - href in below tag #}
+        <a class="nav-link" href="{% url 'home' %}" data-toggle="tooltip" data-placement="bottom" title="Home"><i
+                class="fa fa-home"></i></a>
+    </li>
+
+    {# Your Content Nav #}
+    <li class="nav-item active navs">
+        {# Done - Balance - href in below tag #}
+        <a class="nav-link current" href="{% url 'forum:your-content' %}" data-toggle="tooltip" data-placement="bottom" title="Your Content"><i class="fa fa-edit"></i></a>
+    </li>
+
+    {# Profile Nav #}
+    <li class="nav-item active navs">
+        {# Done - Balance - href in below tag #}
+        <a class="nav-link nav-profile" href="{% url 'account:my-profile' %}" data-toggle="tooltip" data-placement="bottom" title="Profile">
+            {% if user.is_authenticated %}
+                {% if user.is_advocate %}
+                    <img class="img-fluid rounded-circle" src="{{ user.userprofile.profile_image.url }}">
+                {% else %}
+                    <img class="img-fluid rounded-circle" src="{{ user.commonuserprofile.profile_image.url }}">
+                {% endif %}
+            {% else %}
+                <i class="fa fa-user-circle"></i>
+            {% endif %}
+        </a>
+    </li>
+{% endblock active_nav_link %}
+
+{% block main_content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="sorting-container">
+                    <button class="btn btn-dark collapse-btn" data-toggle="collapse"
+                        data-target=".make-collapsable">
+                        <h5 style="font-weight: 600;" class="my-2">Choose What To See</h5>
+                    </button>
+                    <hr>
+                    <div class="make-collapsable collapse">
+                        {% if user.is_advocate %}
+
+                            {# Content Type Header #}
+                            <h5 class="by-content-type-heading">By Content Type</h5>
+                            <hr>
+
+                            {# All Types Checkbox #}
+                            <div class="card row-fluid sorting-options">
+                                <div class="custom-control custom-radio sort-options">
+                                    <input class="custom-control-input" type="radio" name="content_type" value="both" id="sort1" checked>
+                                    <label class="custom-control-label" for="sort1" style="width: 100%;">
+                                        Both
+                                    </label>
+                                </div>
+                            </div>
+
+                            {# Questions Asked Checkbox #}
+                            <div class="card row-fluid sorting-options">
+                                <div class="custom-control custom-radio sort-options">
+                                    <input class="custom-control-input" name="content_type" type="radio" value="questions" id="sort2">
+                                    <label style="width: 100%;" class="custom-control-label" for="sort2">
+                                        Questions Asked
+                                    </label>
+                                </div>
+                            </div>
+
+                            {# Answers Checkbox #}
+                            <div class="card row-fluid sorting-options">
+                                <div class="custom-control custom-radio sort-options">
+                                    <input class="custom-control-input" name="content_type" type="radio" value="answers" id="sort3">
+                                    <label style="width: 100%;" class="custom-control-label" for="sort3">
+                                        Answers
+                                    </label>
+                                </div>
+                            </div>
+                            {# Sort By Order Heading #}
+                            <hr>
+                            <h5>Sort Order</h5>
+                            <hr>
+
+                            {# Newest First Checkbox #}
+                            <div class="card row-fluid sorting-options">
+                                <div class="custom-control custom-radio sort-options">
+                                    <input class="custom-control-input" name="order" type="radio" value="newest" id="sort4" checked>
+                                    <label style="width: 100%;" class="custom-control-label" for="sort4">
+                                        Newest First
+                                    </label>
+                                </div>
+                            </div>
+
+                            {# Oldest First Checkbox #}
+                            <div class="card row-fluid sorting-options">
+                                <div class="custom-control custom-radio sort-options">
+                                    <input class="custom-control-input" name="order" type="radio" value="oldest" id="sort5">
+                                    <label style="width: 100%;" class="custom-control-label" for="sort5">
+                                        Oldest First
+                                    </label>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div>
+                                {# Sort By Order Heading #}
+                                <h5 class="sort-order-heading">Sort Order</h5>
+                                <hr>
+
+                                {# Newest First Checkbox #}
+                                <div class="card row-fluid sorting-options">
+                                    <div class="custom-control custom-radio sort-options">
+                                        <input class="custom-control-input" name="order" type="radio" value="newest" id="sort4" checked>
+                                        <label style="width: 100%;" class="custom-control-label" for="sort4">
+                                            Newest First
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {# Oldest First Checkbox #}
+                                <div class="card row-fluid sorting-options">
+                                    <div class="custom-control custom-radio sort-options">
+                                        <input class="custom-control-input" name="order" type="radio" value="" id="sort5">
+                                        <label style="width: 100%;" class="custom-control-label" for="sort5">
+                                            Oldest First
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 content">
+                <div class="row">
+                    {# Your Content Heading #}
+                    <h5 class="your-content-heading pl-2">Your Content</h5>
+                    <hr class="m-2 mb-3"
+                        style="height:0.01px; width:100%; border-width:0; color:#616161; background-color:#616161;">
+
+                </div>
+                <div class="my-4 text-center" id="loading-icon">
+                    <svg width="50px" heigth="50px" viewBox="0 0 51 50">
+                        <rect y="0" width="13" height="50" fill="#1fa2ff">
+                            <animate attributeName="height" values="50;10;50;" begin="0s" dur="1s"
+                                repeatCount="indefinite" />
+                            <animate attributeName="y" values="0;20;0;" begin="0s" dur="1s"
+                                repeatCount="indefinite" />
+                        </rect>
+                        <rect x="19" y="0" width="13" height="50" fill="#12d8fa">
+                            <animate attributeName="height" values="50;10;50;" begin="0.2s" dur="1s"
+                                repeatCount="indefinite" />
+                            <animate attributeName="y" values="0;20;0;" begin="0.2s" dur="1s"
+                                repeatCount="indefinite" />
+                        </rect>
+                        <rect x="38" y="0" width="13" height="50" fill="#06ffcb">
+                            <animate attributeName="height" values="50;10;50;" begin="0.4s" dur="1s"
+                                repeatCount="indefinite" />
+                            <animate attributeName="y" values="0;20;0;" begin="0.4s" dur="1s"
+                                repeatCount="indefinite" />
+                        </rect>
+                    </svg>
+                </div>
+                <div id="card-container"></div>
+                {% for obj, date, obj_type in your_content %}
+                    <div class="row justify-content-center">
+                        {% if obj_type == "q" %}
+                            {# Question Card #}
+                            <div class="card row-fluid quanda-card m-2" style="width: 100%;">
+                                <div class="your-qanda">
+                                    <span class="badge badge-secondary mb-3">Question</span>
+                                    <span style="float: right;">{{ obj.date_asked|date:"M d, Y" }}</span><br>
+                                    <a href="{% url 'forum:question-detail' obj.id %}">
+                                        <h6 style="color: #dadada; font-weight: 700;">{{ obj.question_title|linebreaksbr|truncatewords:10 }}</h6>
+                                        <hr>
+                                        {{ obj.question_body|linebreaksbr|truncatewords:30 }}
+                                    </a>
+                                    <br>
+                                    <div class="number-of-answers mt-3" style="float:right;">
+                                        Answers >
+                                        {# Balance - Answer Count #}
+                                        <strong style="color: #28a745;">{{ obj.answer_count }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            {# Question Card #}
+                        {% else %}
+                            {# Answer Card #}
+                            <div class="card row-fluid quanda-card m-2" style="width: 100%;">
+                                <div class="your-qanda">
+                                    <div>
+                                        <span class="badge badge-secondary mb-3">Answer</span>
+                                        <span style="float: right;">{{ obj.date_answered|date:"M d, Y" }}</span><br>
+                                    </div>
+                                    <a href="{% url 'forum:question-detail' obj.answer_for.id %}" class="answer">
+                                        {{ obj.answer_body }}
+                                    </a>
+                                    <br>
+                                    {# <button class="btn btn-outline-success btn-sm mt-3" data-toggle="modal" data-target="#edit-question-modal" style="float: left;">Edit</button> #}
+                                    {# <button class="btn btn-outline-danger btn-sm mt-3 ml-4" data-toggle="modal" data-target="#delete-question-modal">Delete</button> #}
+                                    {# Balance - Answer Count #}
+                                </div>
+                            </div>
+                            {# Answer Card #}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
+
+{% block custom_script %}
+<script src="{% static 'forum/yourContent.js' %}"></script>
+{% endblock custom_script %}

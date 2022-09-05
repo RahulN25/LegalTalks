@@ -1,0 +1,519 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css_file %}
+    href="{% static 'forum/question.css' %}"
+{% endblock css_file %}
+
+{% block title %}LegalTalks | {{ question.question_title|truncatewords:6 }}{% endblock title %}
+
+{% block active_nav_link %}
+    {# ---- Home Nav ----- #}
+    <li class="nav-item active navs">
+        {# -Done Balance - href in below tag #}
+        <a class="nav-link" href="{% url 'home' %}" data-toggle="tooltip" data-placement="bottom" title="Home"><i
+                class="fa fa-home"></i></a>
+    </li>
+
+    {# Your Content Nav #}
+    <li class="nav-item active navs">
+        {# Done - Balance - href in below tag #}
+        <a class="nav-link" href="{% url 'forum:your-content' %}" data-toggle="tooltip" data-placement="bottom" title="Your Content"><i
+                class="fa fa-edit"></i></a>
+    </li>
+
+    {# Profile Nav #}
+    <li class="nav-item active navs">
+        {# Balance - Change the icon #}
+        <a class="nav-link nav-profile" href="{% url 'account:my-profile' %}" data-toggle="tooltip" data-placement="bottom" title="Profile">
+            {% if user.is_authenticated %}
+                {% if user.is_advocate %}
+                    <img class="img-fluid rounded-circle" src="{{ user.userprofile.profile_image.url }}">
+                {% else %}
+                    <img class="img-fluid rounded-circle" src="{{ user.commonuserprofile.profile_image.url }}">
+                {% endif %}
+            {% else %}
+                <i class="fa fa-user-circle"></i>
+            {% endif %}
+        </a>
+    </li>
+{% endblock active_nav_link %}
+
+{% block main_content %}
+    {# Answer Modal Start #}
+    <div class="modal fade" id="answer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {# Modal Title Add Question #}
+                    <h5 class="modal-title" id="exampleModalLabel">Add Answer</h5>
+                    
+                    {# Close Button #}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        {# Anonymous ON/OFF #}
+                        <div class="form-check">
+                            {% render_field answer_form.is_anonymous class="form-check-input" id="ans-is-anonymous" %}
+                            <label class="form-check-label" for="ans-is-anonymous">
+                                Post As Anonymous?
+                            </label>
+                        </div>
+                        <hr>
+                        {# Add Answer Textarea #}
+                        {% render_field answer_form.answer_body class="form-control" id="add-answer" placeholder="Write Your Answer Here." %}
+                        {# <textarea class="form-control" id="add-answer" placeholder="Write Your Answer Here."></textarea> #}
+                    </div>
+
+                    {# Modal Foooter Start #}
+                    <div class="modal-footer">
+                        {# Add Question Button #}
+                        <button type="submit" class="btn btn-danger">Submit</button>
+                        {# Close Button #}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    {# Modal Foooter End #}
+                </form>
+            </div>
+        </div>
+    </div>
+    {# Answer Modal End #}
+
+    {# Report Modal Start #}
+    <div class="modal fade" id="report-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {# Modal Title Add Question #}
+                    <h5 class="modal-title" id="exampleModalLabel">Report Question</h5>
+
+                    {# Close Button #}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    {# Add Answer Textarea #}
+                    <p>Are you sure you want to report this question?</p>
+                </div>
+
+                {# Modal Foooter Start #}
+                <div class="modal-footer">
+                    {# Close Button #}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    {# Add Question Button #}
+                    <button type="button" class="btn btn-danger">Report</button>
+                </div>
+                {# Modal Foooter End #}
+            </div>
+        </div>
+    </div>
+    {# Report Modal End #}
+
+    {% if question.author == user %}
+        {# Edit Question Modal Start #}
+        <div class="modal fade" id="edit-question-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        {# Modal Title Edit Question #}
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Question</h5>
+
+                        {# Close Button #}
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    {# Edit Question Textarea #}
+                    <form action="{% url 'forum:edit-question' question.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            {# Anonymous ON/OFF #}
+                            <div class="form-check">
+                                {% render_field question_edit_form.is_anonymous class="form-check-input" id="edit-as-anonymous" %}
+                                <label class="form-check-label" for="edit-as-anonymous">
+                                    Post As Anonymous?
+                                </label>
+                            </div>
+                            <hr>
+
+                            {# Categories Start #}
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="edit-category">Categories</label>
+                                </div>
+                                {% render_field question_edit_form.category class="custom-select" id="edit-category" %}
+                            </div>
+                            {% render_field question_edit_form.question_title class="form-control" style="color: #343A40 !important;" id="edit-question-title" %}
+                            {% render_field question_edit_form.question_body class="form-control" id="edit-question-detail" %}
+                            {# <input class="form-control" id="edit-question-title" placeholder="Question Title"></input> #}
+                            {# <textarea class="form-control" id="edit-question-detail" placeholder="Start your Question with 'What', 'How', 'Why', etc."></textarea> #}
+                        </div>
+
+                        {# Modal Foooter Start #}
+                        <div class="modal-footer">
+                            {# Add Question Button #}
+                            <button type="submit" class="btn btn-success">Update</button>
+                            {# Close Button #}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                    {# Modal Foooter End #}
+                </div>
+            </div>
+        </div>
+        {# Edit Question Modal End #}
+    {% endif %}
+
+    {# Balance - This whole module #}
+    {# Edit Answer Modal Start #}
+    <div class="modal fade" id="edit-answer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {# Modal Title Edit Answer #}
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Answer</h5>
+
+                    {# Close Button #}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="/forum/answer/edit/" id="edit-answer" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="custom-control custom-checkbox">
+                            <input name="answer_anonymity" type="checkbox" class="custom-control-input" id="answer-anonymous">
+                            <label class="custom-control-label" for="answer-anonymous">Posted As Anonymous.</label>
+                        </div>
+                        <hr>
+                        {# Add answer Textarea #}
+                        <textarea class="form-control" id="edit-answer-detail" name="edit_question_body" required></textarea>
+                    </div>
+                    {# Modal Foooter Start #}
+                    <div class="modal-footer">
+                        {# Add Edi Button #}
+                        <button type="submit" class="btn btn-success">Update</button>
+                        {# Close Button #}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+                {# Modal Foooter End #}
+
+            </div>
+        </div>
+    </div>
+    {# Edit Answer Modal End #}
+
+    {# Done - Balance - This whole module #}
+    {% if question.author == user %}
+        {# Delete Question Modal Start #}
+        <div class="modal fade" id="delete-question-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        {# Modal Title Add Question #}
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Question</h5>
+
+                        {# Close Button #}
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+
+
+                    <div class="modal-body">
+                        {# Add Answer Textarea #}
+                        <p>Are you sure you want to delete this Question?</p>
+                        <p style="color: grey; font-size: 14px; ">Note : This action will permanently delete the question
+                        </p>
+
+                    </div>
+                    {# Modal Foooter Start #}
+                    <div class="modal-footer">
+                        <form action="{% url 'forum:delete-question' question.id %}" method="POST">
+                            {% csrf_token %}
+                            {# Delete Question Button #}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        {# Close Button #}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                    {# Modal Foooter End #}
+
+                </div>
+            </div>
+        </div>
+        {# Delete Question Modal End #}
+    {% endif %}
+
+    {# Balance - This whole module #}
+    {# Delete Answer Modal Start #}
+    <div class="modal fade" id="delete-answer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {# Modal Title Delete Answer #}
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Answer</h5>
+
+                    {# Close Button #}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    {# Delete Answer Textarea #}
+                    <p>Are you sure you want to delete this Answer?</p>
+                    <p style="color: grey; font-size: 14px; ">Note : This action will permanently delete the answer</p>
+                </div>
+
+                <form action="/forum/answer/delete/" id="delete-answer" method="POST">
+                    {% csrf_token %}
+                    {# Modal Foooter Start #}
+                    <div class="modal-footer">
+                        {# Delete Answer Button #}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        {# Close Button #}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                    {# Modal Foooter End #}
+                </form>
+            </div>
+        </div>
+    </div>
+    {# Delete Answer Modal End #}
+
+    {# Main Content #}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-10 col-sm-12 qanda-container">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                            <div class="border border-success text-success p-3 mb-3 rounded pl-4">
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;&nbsp;<strong>{{ message }}</strong>
+                            </div>
+                        {% else %}
+                            <div class="border border-danger text-danger p-3 mb-3 rounded pl-4">
+                                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>&nbsp;&nbsp;<strong>{{ message }}</strong>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {# Question Card Start #}
+                <div class="question-card">
+                    <div class="card row-fluid main-content p-3">
+                        <div class="profile">
+                            <div class="user-info" style="width: 40%;">
+                                {% if question.is_anonymous %}
+                                    {# Balance - Point the hrefs to user profile page #}
+                                    {# User Profile Info#}
+                                    <a href="{% url 'forum:anonymous' %}">
+                                        {# Profile Icon #}
+                                        <img src="/media/anonymous.png" style="height: 45px; width: 45px; float: left; border-radius: 50%;">
+                                    </a>
+                                    <a href="{% url 'forum:anonymous' %}">
+                                        {# Username #}
+                                        <div class="pl-2" style="float: left; color: #4defa5; font-weight: 600;">Anonymous</div>
+                                    </a>
+                                {% else %}
+                                    {% if question.author.is_advocate %}
+                                        {# Done - Balance - Point the href to user profile page #}
+                                        {# User Profile Info#}
+                                        <a href="{% url 'account:view-profile' question.author.id question.author.username %}">
+                                            {# Profile Icon #}
+                                            <img src="{{ question.author.userprofile.profile_image.url }}" style="height: 45px; width: 45px; float: left; border-radius: 50%;">
+                                        </a>
+                                    {% else %}
+                                        {# Done - Balance - Point the href to user profile page #}
+                                        {# User Profile Info#}
+                                        <a href="{% url 'account:view-profile' question.author.id question.author.username %}">
+                                            {# Profile Icon #}
+                                            <img src="{{ question.author.commonuserprofile.profile_image.url }}" style="height: 45px; width: 45px; float: left;  border-radius: 50%;">
+                                        </a>
+                                    {% endif %}
+                                    <a href="{% url 'account:view-profile' question.author.id question.author.username %}">
+                                        {# Username #}
+                                        <div class="pl-2" style="float: left; color: #4defa5; font-weight: 600;">@{{ question.author.username }}</div>
+                                    </a>
+                                {% endif %}
+                                <br>
+                                {# Qustion asked on Date #}
+                                <div class="asked_on">
+                                    <small class="pl-2">{{ question.date_asked|date:"M d, Y" }}</small>
+                                </div>
+                            </div>
+                            <div class="cat-and-report">
+                                {# Question Category Badge #}
+                                <span id="category-of-question" class="badge badge-info">{{ question.get_category_display }}</span>
+                                {# Report Button #}
+                                <!-- <button id="report-button" class="btn btn-outline-danger btn-sm ml-2" data-toggle="modal" data-target="#report-modal" data-toggle="tooltip" data-placement="bottom" title="Report"><i class="fa fa-question"></i></button> -->
+                            </div>
+                        </div>
+                        
+                        {# Question #}
+                        <div class="row-fluid question mt-4">
+                            {# Question Detailer View Link #}
+                            {# <a href="../question/question.html"> #}
+                                {# Question Title #}
+                                <h6 style="font-weight: 700;">{{ question.question_title|linebreaksbr }}</h6>
+                                <hr>
+                                {# Question Detail #}
+                                <p>{{ question.question_body|linebreaksbr }}</p>
+                            </a>
+                        </div>
+
+                        {# Button Group #}
+                        <div class="button-group mt-3" style="float: left;">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                {% if user.is_authenticated and request.user in question.upvotes.all %}
+                                    <button type="button" class="btn btn-sm bg-success" data-toggle="tooltip"
+                                        data-placement="top" title="Upvote"><i class="fa text-white fa-arrow-up"></i></button>
+                                {% else %}
+                                    <button type="button" class="btn btn-sm border-success" data-toggle="tooltip"
+                                        data-placement="top" title="Upvote"><i class="fa text-success fa-arrow-up"></i></button>
+                                {% endif %}
+                                <button type="button" class="btn btn-outline-dark border-left-0 btn-sm" data-toggle="tooltip"
+                                    data-placement="top" title="Upvote/Downvote Count"
+                                    style="color: #cfcfcf;">{{ question.votes }}</button>
+                                {% if user.is_authenticated and request.user in question.downvotes.all %}
+                                    <button type="button" class="btn btn-sm bg-danger" data-toggle="tooltip"
+                                        data-placement="top" title="Downvote"><i class="fa text-white fa-arrow-down"></i></button>
+                                {% else %}
+                                    <button type="button" class="btn btn-sm border-danger" data-toggle="tooltip"
+                                        data-placement="top" title="Downvote"><i class="fa text-danger fa-arrow-down"></i></button>
+                                {% endif %}
+                            </div>
+
+                            {% if user.is_advocate %}
+                                {# Answer Button #}
+                                <button class="btn btn-outline-success btn-sm ml-2" data-toggle="modal" data-target="#answer-modal">Answer</button>
+                            {% endif %}
+
+                            {% if question.author == user %}
+                                {# Edit Question Button #}
+                                <button class="btn btn-outline-success btn-sm ml-2" data-toggle="modal" data-target="#edit-question-modal">Edit</button>
+                                {# Delete Question Button #}
+                                <button class="btn btn-outline-danger btn-sm ml-2" data-toggle="modal" data-target="#delete-question-modal">Delete</button>
+                            {% endif %}
+
+                            {# Total Number of Answers #}
+                            <span id="number-of-answers"> Answers > {{ answer_count }}</span>
+                        </div>
+                    </div>
+                    {# Question Card END #}
+
+                    <hr>
+
+                    {# Answers Heading Inside two hrs #}
+                    <p class="text-center">Answers</p>
+                    <hr>
+
+                    {% for answer in question.answer_set.all %}
+                        {# Answer Card Start #}
+                        <div class="answer-card" id="answer-id-{{ answer.id }}">
+                            <div class="card row-fluid main-content p-3">
+                                <div>
+                                    <div class="user-info" style="width: 40%;">
+                                        {% if answer.is_anonymous %}
+                                            {# Balance - Point the hrefs to proper profile page #}
+                                            {# User Profile Info#}
+                                            <a href="{% url 'forum:anonymous' %}">
+                                                {# Profile Icon #}
+                                                <img src="/media/anonymous.png" style="height: 45px; width: 45px; float: left; border-radius: 50%;">
+                                            </a>
+
+                                            {# Balance - Point the hrefs to proper profile page #}
+                                            <a href="{% url 'forum:anonymous' %}">
+                                                {# Username #}
+                                                <div class="pl-2" style="float: left; color: #4defa5; font-weight: 500;">Anonymous</div>
+                                            </a>
+                                        {% else %}
+                                            {# Done - Balance - Point the hrefs to proper profile page #}
+                                            {# User Profile Info#}
+                                            <a href="{% url 'account:view-profile' answer.answerer.id answer.answerer.username %}">
+                                                {# Profile Icon #}
+                                                <img src="{{ answer.answerer.userprofile.profile_image.url }}" style="height: 45px; width: 45px; float: left; border-radius: 50%;">
+                                            </a>
+
+                                            {# Done - Balance - Point the hrefs to proper profile page #}
+                                            <a href="{% url 'account:view-profile' answer.answerer.id answer.answerer.username %}">
+                                                {# Username #}
+                                                <div class="pl-2" style="float: left; color: #4defa5; font-weight: 500;">@{{ answer.answerer.username }}</div>
+                                            </a>
+                                        {% endif %}
+
+                                        <br>
+                                        {# Qustion asked on Date #}
+                                        <div class="asked_on">
+                                            <small class="pl-2">{{ answer.date_answered|date:"M d, Y" }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# Answer #}
+                                <div class="row-fluid answer mt-4">
+                                    <p>{{ answer.answer_body|linebreaksbr }}</p>
+                                    </a>
+                                </div>
+
+                                {# Button Group #}
+                                <div class="button-group mt-3" style="float: left;">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        {% if user.is_authenticated and request.user in answer.upvotes.all %}
+                                            <button type="button" class="btn btn-sm bg-success" data-toggle="tooltip"
+                                                data-placement="top" title="Upvote"><i class="fa text-white fa-arrow-up"></i></button>
+                                        {% else %}
+                                            <button type="button" class="btn btn-sm border-success" data-toggle="tooltip"
+                                                data-placement="top" title="Upvote"><i class="fa text-success fa-arrow-up"></i></button>
+                                        {% endif %}
+                                        <button type="button" class="btn btn-outline-dark border-left-0 btn-sm" data-toggle="tooltip"
+                                            data-placement="top" title="Upvote/Downvote Count"
+                                            style="color: #cfcfcf;">{{ answer.votes }}</button>
+                                        {% if user.is_authenticated and request.user in answer.downvotes.all %}
+                                            <button type="button" class="btn btn-sm bg-danger" data-toggle="tooltip"
+                                                data-placement="top" title="Downvote"><i class="fa text-white fa-arrow-down"></i></button>
+                                        {% else %}
+                                            <button type="button" class="btn btn-sm border-danger" data-toggle="tooltip"
+                                                data-placement="top" title="Downvote"><i class="fa text-danger fa-arrow-down"></i></button>
+                                        {% endif %}
+                                    </div>
+
+                                    {% if answer.answerer == user %}
+                                        {# Edit Answer Button #}
+                                        <input type="hidden" name="answer_id" value="{{ answer.id }}">
+                                        <button class="btn btn-outline-success btn-sm ml-2 edit-answer-button" data-toggle="modal" data-target="#edit-answer-modal">Edit</button>
+                                        {# Delete Answer Button #}
+                                        <button class="btn btn-outline-danger btn-sm ml-2 delete-answer" data-toggle="modal" data-target="#delete-answer-modal">Delete</button>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                            {# Answer Card END#}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
+
+{% block custom_script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'forum/edit-answer.js' %}"></script>
+<script src="{% static 'forum/question.js' %}"></script>
+{% endblock custom_script %}

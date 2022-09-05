@@ -1,0 +1,229 @@
+html, body{
+    background-color: #181818 !important;
+    color: #cfcfcf !important;
+    height: 1000px;
+}
+
+body a{
+    text-decoration: none !important;
+    color: inherit;
+}
+body a:hover
+{
+  color: inherit;
+  cursor:pointer;
+}
+
+body hr{
+    border-top: solid 0.01px #747474 !important;
+}
+
+input{
+    color: #cfcfcf !important;
+    background-color: #393839 !important;
+    border: 0.01px solid #616161 !important;
+}
+
+input::placeholder{
+    color: #cfcfcf !important;
+}
+
+/*---------------------------- Navbar START ----------------------------*/
+.navbar{
+    overflow: hidden !important;
+    position: fixed !important; /* Set the navbar to fixed position */
+    top: 0 !important; /* Position the navbar at the top of the page */
+    width: 100% !important; /* Full width */
+    z-index: 1;
+    background-color: #262626;
+    border-bottom: solid 0.001px #393839;
+}
+
+.navbar-brand strong{
+    color: white;
+    font-size: 23px;
+}
+.navbar-brand img{
+    height: 29px;
+    width: 33px;
+}
+
+.navs{
+    margin-left: 30px;
+}
+
+.navs i{
+    font-size: 25px;
+}
+
+.current{
+    border-bottom: solid 2px #00b4cc;
+}
+
+.current i{
+    color: #00b4cc;
+}
+#add_question{
+    margin-right: 30px;
+    margin-top: 2.5px;
+    font-weight: 500;
+}
+
+#add_question i{
+    font-size: 16px;
+}
+
+#add_question i:hover{
+    color: white;
+}
+
+#search{
+    width: 320px;
+}
+
+.search{
+    margin-left: 30px;
+}
+
+#login-signup-btns{
+    margin-top: 3px;
+}
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.navs i:hover{
+    color: #00b4cc;
+}
+
+.navs i:focus{
+    color: #00b4cc;
+}
+.nav-link:active{
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.59);
+-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.59);
+box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.59);
+}
+
+/*-- Question Modal --*/
+.modal{
+    color: black;
+}
+
+#edit-answer-detail{
+    margin-top: 17.5px;
+    height: 220px;
+}
+
+.modal #edit-question-detail{
+    margin-top: 17.5px;
+    height: 300px;
+}
+
+.modal input{
+    color: #ced4da !important;
+    background-color: white !important;
+    border-color: #ced4da !important;
+}
+
+.modal input::placeholder{
+    color: #777777 !important;
+}
+
+
+/*-- Answer Modal --*/
+.modal #add-answer{
+    height: 300px;
+}
+
+/*---------------------------- Navbar END ----------------------------*/
+.card{
+    background-color: #262626 !important;
+    padding: 2px !important;
+}
+
+.card:hover{
+    border: solid 0.01px #616161;
+    background-color: #292929 !important;
+}
+
+.card{
+    margin-bottom: 20px;
+}
+
+.qanda-container{
+    margin-top: 95px !important;
+}
+
+.user-info{
+    float: left;
+}
+
+.user-info .username{
+    font-size: 15px;
+}
+
+.asked_on small{
+    font-size: 13px;
+}
+
+.cat-and-report{
+    float: right;
+}
+
+#category-of-question{
+    font-size: 13px; 
+    font-weight: 500;
+}
+
+#report-button{
+    float: right;
+}
+
+#report-button i{
+    font-size: 16px;
+}
+
+.question{
+    margin-top: 10px;
+    font-weight: 400;
+}
+
+.question h6{
+    color: #d1d1d1;
+    font-size: 1.17em;
+}
+
+.question hr{
+    border-top: solid 0.001px #616161;
+}
+
+.question a{
+    padding: 5px 0px 5px 0px;
+}
+
+.row-fluid{
+    word-wrap: break-word;
+}
+
+#number-of-answers{
+    margin-top: 5px;
+    color: #00c3ff; 
+    float: right;
+}
+
+.answer-container{
+    margin-top: 0px;
+}
+
+.upvote-downvote i{
+    font-size: 17px; 
+    padding: 2px 0px 2px 0px;
+    size: 10px !important;
+}
+
+.nav-profile img{
+    height: 33px;
+    width: 33px;
+    margin-top: -3px;
+}

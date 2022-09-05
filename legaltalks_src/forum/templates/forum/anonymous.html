@@ -1,0 +1,57 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block css_file %}
+    href="{% static 'forum/anonymous.css' %}"
+{% endblock css_file %}
+
+{% block title %}LegalTalks | Anonymous User{% for keyword in keywords %}{{ keyword }} {% endfor %}{% endblock title %}
+
+{% block active_nav_link %}
+    {# ---- Home Nav ----- #}
+    <li class="nav-item active navs">
+        {# -Done Balance - href in below tag #}
+        <a class="nav-link" href="{% url 'home' %}" data-toggle="tooltip" data-placement="bottom" title="Home"><i
+                class="fa fa-home"></i></a>
+    </li>
+
+    {# Your Content Nav #}
+    <li class="nav-item active navs">
+        {# Done - Balance - href in below tag #}
+        <a class="nav-link" href="{% url 'forum:your-content' %}" data-toggle="tooltip" data-placement="bottom" title="Your Content"><i
+                class="fa fa-edit"></i></a>
+    </li>
+
+    {# Profile Nav #}
+    <li class="nav-item active navs">
+        {# Done - Balance - href in below tag #}
+        <a class="nav-link nav-profile" href="{% url 'account:my-profile' %}" data-toggle="tooltip" data-placement="bottom" title="Profile">
+            {% if user.is_authenticated %}
+                {% if user.is_advocate %}
+                    <img class="img-fluid rounded-circle" src="{{ user.userprofile.profile_image.url }}">
+                {% else %}
+                    <img class="img-fluid rounded-circle" src="{{ user.commonuserprofile.profile_image.url }}">
+                {% endif %}
+            {% else %}
+                <i class="fa fa-user-circle"></i>
+            {% endif %}
+        </a>
+    </li>
+{% endblock active_nav_link %}
+
+{% block main_content %}
+    <h4 class="about-heading text-center">About</h4>
+    <hr>
+    <div class="row mt-5">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="anonymous-image">
+                <img class="img-fluid" src="/media/anonymous.jpg">
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="anonymous-heading">
+                <h1 class="text-center">This <br> User <br>Chooses <br> To Be <br> Anonymous</h1>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}

@@ -1,0 +1,370 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block css_file %}
+href="{% static 'forum/index.css' %}"
+{% endblock css_file %}
+
+{% block title %}LegalTalks | Home{% endblock title %}
+
+{% block active_nav_link %}
+    {# ---- Home Nav ----- #}
+    <li class="nav-item active navs">
+        {# -Done Balance - href in below tag #}
+        <a class="nav-link current" href="{% url 'home' %}" data-toggle="tooltip" data-placement="bottom" title="Home"><i
+                class="fa fa-home"></i></a>
+    </li>
+
+    {# Your Content Nav #}
+    <li class="nav-item active navs">
+        {# Balance - href in below tag #}
+        <a class="nav-link" href="{% url 'forum:your-content' %}" data-toggle="tooltip" data-placement="bottom" title="Your Content">
+            <i class="fa fa-edit"></i>
+        </a>
+    </li>
+
+    {# Profile Nav #}
+    <li class="nav-item active navs">
+        {# Done - Balance - href in below tag #}
+        <a class="nav-link nav-profile" href="{% url 'account:my-profile' %}" data-toggle="tooltip" data-placement="bottom" title="Profile">
+            {% if user.is_authenticated %}
+                {% if user.is_advocate %}
+                    {% if user.userprofile.profile_image.name == 'default_user.jpg' %}
+                        <i class="fa fa-user-circle"></i>
+                    {% else %}
+                        <img class="img-fluid rounded-circle" src="{{ user.userprofile.profile_image.url }}">
+                    {% endif %}
+                {% else %}
+                    {% if user.commonuserprofile.profile_image.name == 'default_user.jpg' %}
+                        <i class="fa fa-user-circle"></i>
+                    {% else %}
+                        <img class="img-fluid rounded-circle" src="{{ user.commonuserprofile.profile_image.url }}">
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <i class="fa fa-user-circle"></i>
+            {% endif %}
+        </a>
+    </li>
+{% endblock active_nav_link %}
+
+{% block main_content %}
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <hr>
+                <div class="container-fluid categories-container">
+
+                    {# Sort as per Categories Heading #}
+                    <button class="btn btn-dark collapse-btn" data-toggle="collapse" data-target=".make-collapsable">
+                        <h5 class="my-2">Filter Categories</h5>
+                    </button>
+                    <hr>
+
+                    <div class="make-collapsable collapse">
+                        {# Business Law #}
+                        <div class="card row-fluid categories">
+                            <div class="form-check cat-values">
+                                <input class="form-check-input" type="checkbox" value="" id="cat1">
+                                <label class="form-check-label" for="cat1">
+                                    Business Law
+                                </label>
+                            </div>
+                        </div>
+
+                        {# Civil Law #}
+                        <div class="card row-fluid categories">
+                            <div class="form-check cat-values">
+                                <input class="form-check-input" type="checkbox" value="" id="cat2">
+                                <label class="form-check-label" for="cat2">
+                                    Civil Law
+                                </label>
+                            </div>
+                        </div>
+
+                        {# Constitutional Law #}
+                        <div class="card row-fluid categories">
+                            <div class="form-check cat-values">
+                                <input class="form-check-input" type="checkbox" value="" id="cat3">
+                                <label class="form-check-label" for="cat3">
+                                    Constitutional Law
+                                </label>
+                            </div>
+                        </div>
+
+                        {# Consumer Law #}
+                        <div class="card row-fluid categories">
+                            <div class="form-check cat-values">
+                                <input class="form-check-input" type="checkbox" value="" id="cat4">
+                                <label class="form-check-label" for="cat4">
+                                    Consumer Law
+                                </label>
+                            </div>
+                        </div>
+
+                        {# Criminal Law #}
+                        <div class="card row-fluid categories">
+                            <div class="form-check cat-values">
+                                <input class="form-check-input" type="checkbox" value="" id="cat5">
+                                <label class="form-check-label" for="cat5">
+                                    Crimial Law
+                                </label>
+                            </div>
+                        </div>
+
+                        {# Family Law #}
+                        <div class="card row-fluid categories">
+                            <div class="form-check cat-values">
+                                <input class="form-check-input" type="checkbox" value="" id="cat6">
+                                <label class="form-check-label" for="cat6">
+                                    Family Law
+                                </label>
+                            </div>
+                        </div>
+
+                        {# Intellectual Property #}
+                        <div class="card row-fluid categories">
+                            <div class="form-check cat-values">
+                                <input class="form-check-input" type="checkbox" value="" id="cat7">
+                                <label class="form-check-label" for="cat7">
+                                    Intellectual Property
+                                </label>
+                            </div>
+                        </div>
+
+                        {# Labour #}
+                        <div class="card row-fluid categories">
+                            <div class="form-check cat-values">
+                                <input class="form-check-input" type="checkbox" value="" id="cat8">
+                                <label class="form-check-label" for="cat8">
+                                    Labour
+                                </label>
+                            </div>
+                        </div>
+
+                        {# Property Law #}
+                        <div class="card row-fluid categories">
+                            <div class="form-check cat-values">
+                                <input class="form-check-input" type="checkbox" value="" id="cat9">
+                                <label class="form-check-label" for="cat9">
+                                    Property Law
+                                </label>
+                            </div>
+                        </div>
+
+                        {# Taxation #}
+                        <div class="card row-fluid categories">
+                            <div class="form-check cat-values">
+                                <input class="form-check-input" type="checkbox" value="" id="cat10">
+                                <label class="form-check-label" for="cat10">
+                                    Taxation
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 center m-2" style="margin-top: 85px !important;">
+
+                {# Enter Your Question Card Start #}
+                <div class="row justify-content-center">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.tags == 'success' %}
+                                <div class="border border-success text-success p-3 mb-3 rounded pl-4" style="width: 100% !important;">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;&nbsp;<strong>{{ message }}</strong>
+                                </div>
+                            {% else %}
+                                <div class="border border-danger text-danger p-3 mb-3 rounded pl-4" style="width: 100% !important;">
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>&nbsp;&nbsp;<strong>{{ message }}</strong>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <div class="card row-fluid">
+                        <div class="your-question">
+                            {% if user.is_authenticated %}
+                                {# Profile & Username  #}
+                                {# Done - Balance - Point the href below to user profile #}
+                                <a class="profile" href="{% url 'account:my-profile' %}">
+                                    {% if user.is_advocate %}
+                                        <img class="img-fluid rounded-circle" style="height: 28px;
+    width: 28px;" src="{{ user.userprofile.profile_image.url }}" alt=""> 
+                                    {% else %}
+                                        <img class="img-fluid rounded-circle" style="height: 28px;
+    width: 28px;" src="{{ user.commonuserprofile.profile_image.url }}" alt=""> 
+                                    {% endif %}
+                                    {{ user.username }}
+                                </a>
+                            {% endif %}
+
+                            {# What is your Question Input Box #}
+                            <input class="form-control" id="question-input" placeholder="What is your Question? Please type here." rows="1" data-toggle="modal" data-target="#add-question-modal"></input>
+                        </div>
+                    </div>
+                    <div class="my-5" id="loading-icon">
+                        <svg width="50px" heigth="50px" viewBox="0 0 51 50">
+                            <rect y="0" width="13" height="50" fill="#1fa2ff">
+                                <animate attributeName="height" values="50;10;50;" begin="0s" dur="1s"
+                                    repeatCount="indefinite" />
+                                <animate attributeName="y" values="0;20;0;" begin="0s" dur="1s"
+                                    repeatCount="indefinite" />
+                            </rect>
+                            <rect x="19" y="0" width="13" height="50" fill="#12d8fa">
+                                <animate attributeName="height" values="50;10;50;" begin="0.2s" dur="1s"
+                                    repeatCount="indefinite" />
+                                <animate attributeName="y" values="0;20;0;" begin="0.2s" dur="1s"
+                                    repeatCount="indefinite" />
+                            </rect>
+                            <rect x="38" y="0" width="13" height="50" fill="#06ffcb">
+                                <animate attributeName="height" values="50;10;50;" begin="0.4s" dur="1s"
+                                    repeatCount="indefinite" />
+                                <animate attributeName="y" values="0;20;0;" begin="0.4s" dur="1s"
+                                    repeatCount="indefinite" />
+                            </rect>
+                        </svg>
+                    </div>
+                </div>
+                {# Enter Your Question Card Ends #}
+
+                <div class="row justify-content-center">
+                    {% for question, answer_count, votes, question_category in questions %}
+                        {# Question Card Start #}
+                        <div class="question-card" id="question-id-{{ question.id }}" style="width: 100% !important;">
+                            <div class="card row-fluid main-content p-3">
+                                <div>
+                                    {# User Profile Info#}
+                                    <div class="user-img" style="width: 40%">
+
+                                        {% if question.is_anonymous %}
+                                            {# Balance - Point the href to profile page below #}
+                                            <a href="{% url 'forum:anonymous' %}">
+                                                {# Profile Icon #}
+                                                <img src="/media/anonymous.png" style="height: 45px; width: 45px; float: left; border-radius: 50%;">
+                                            </a>
+                                            {# Balance - Point the href to profile page below #}
+                                            <a href="{% url 'forum:anonymous' %}">
+                                                {# Username #}
+                                                <div class="pl-2" style="float: left; color: #4defa5; font-weight: 600;">
+                                                    Anonymous
+                                                </div>
+                                            </a>
+                                        {% else %}
+                                            {% if question.author.is_advocate %}
+                                                {# Done - Balance - Point the href to profile page below #}
+                                                <a href="{% url 'account:view-profile' question.author.id question.author.username %}">
+                                                    {# Profile Icon #}
+                                                    <img src="{{ question.author.userprofile.profile_image.url }}" style="height: 45px; width: 45px; float: left; border-radius: 50%;">
+                                                </a>
+                                            {% else %}
+                                                {# Done - Balance - Point the href to profile page below #}
+                                                <a href="{% url 'account:view-profile' question.author.id question.author.username %}">
+                                                    {# Profile Icon #}
+                                                    <img src="{{ question.author.commonuserprofile.profile_image.url }}" style="height: 45px; width: 45px; float: left; border-radius: 50%;">
+                                                </a>
+                                            {% endif %}
+                                            {# Done - Balance - Point the href to profile page below #}
+                                            <a href="{% url 'account:view-profile' question.author.id question.author.username %}">
+                                                {# Username #}
+                                                <div class="pl-2" style="float: left; color: #4defa5; font-weight: 600;">
+                                                    {{ question.author.username }}
+                                                </div>
+                                            </a>
+                                        {% endif %}
+                                        <br>
+
+                                        {# Qustion asked on Date #}
+                                        <div class="asked_on">
+                                            <small class="pl-2">{{ question.date_asked|date:"M d, Y" }}</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="cat-and-report">
+                                        {# Question Category Badge #}
+                                        <span id="category-of-question" class="badge badge-info">{{ question_category }}</span>
+
+                                        <!-- {# Report Button #}
+                                        <button id="report-button" class="btn btn-outline-danger btn-sm ml-2" data-toggle="modal" data-target="#report-modal" data-toggle="tooltip" data-placement="bottom" title="Report"><i class="fa fa-question"></i></button> -->
+                                    </div>
+                                </div>
+
+                                {# Question #}
+                                <div class="row-fluid question mt-4">
+                                    {# Question Detailer View Link #}
+                                    {# Balance - Point the href below to proper page #}
+                                    <a href="{% url 'forum:question-detail' question.id %}">
+                                        {# Question Title #}
+                                        <h6 class="question-title">{{ question.question_title|linebreaksbr }}</h6>
+                                        <hr>
+                                        {# Question Detail #}
+                                        <p>{{ question.question_body|linebreaksbr }}</p>
+                                    </a>
+                                </div>
+
+                                {# Button Group #}
+                                <div class="button-group mt-3" style="float: left;">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        {% if user.is_authenticated and request.user in question.upvotes.all %}
+                                            <button type="button" class="btn bg-success btn-sm" data-toggle="tooltip" data-placement="top" title="Upvote"><i class="fa text-white fa-arrow-up"></i></button>
+                                        {% else %}
+                                            <button type="button" class="btn border-success btn-sm" data-toggle="tooltip" data-placement="top" title="Upvote"><i class="fa text-success fa-arrow-up"></i></button>
+                                        {% endif %}
+                                        <button type="button" class="btn btn-outline-dark border-left-0 btn-sm" data-toggle="tooltip" data-placement="top" title="Upvote/Downvote Count" style="color: #cfcfcf;">{{ question.votes }}</button>
+                                        {% if user.is_authenticated and request.user in question.downvotes.all %}
+                                            <button type="button" class="btn bg-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Downvote"><i class="fa text-white fa-arrow-down"></i></button>
+                                        {% else %}
+                                            <button type="button" class="btn border-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Downvote"><i class="fa text-danger fa-arrow-down"></i></button>
+                                        {% endif %}
+                                    </div>
+
+                                        {% if user.is_authenticated %}
+                                            {% if user.is_advocate %}
+                                                {# Answer Button #}
+                                                <button class="btn btn-outline-success btn-sm ml-2" data-toggle="modal" data-target="#answer-modal">Answer</button>
+                                            {% endif %}
+                                        {% else %}
+                                            {# Answer Button #}
+                                            <a class="btn btn-outline-success btn-sm ml-2" href="{% url 'account:login' %}">Answer</a>
+                                        {% endif %}
+
+                                    {# Total Number of Answers #}
+                                    <span id="number-of-answers"> Answers > {{ answer_count }}</span>
+                                </div>
+                            </div>
+                            {# Question Card END#}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
+
+{% block custom_script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'forum/category-filter.js' %}"></script>
+{% endblock custom_script %}
+
+            {% comment %}
+            <!DOCTYPE html>
+            <html lang="en">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>{% if user.is_authenticated %}LegalTalks | Welcome Back {{ user.first_name }}{% else %}LegalTalks
+                    |
+                    Home{% endif %}</title>
+            </head>
+
+            <body>
+                Welcome to the homepage
+                <br>
+                <br>
+                <br>
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+                {% endif %}
+            </body>
+
+            </html> {% endcomment %}
