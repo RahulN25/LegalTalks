@@ -6,15 +6,15 @@
 
 ![Navbar](/ss/navbar.png)
 
-Navigation bar Contains Following Elements starting from left:
+#Navigation bar Contains Following Elements starting from left:
 
-•	Logo of Legal Talks
-•	Home Page nav
-•	Your Content nav
-•	Profile nav
-•	Add Question Button
-•	Search Bar
-•	Login and Signup options
-•	About Nav
+-	Logo of Legal Talks
+-	Home Page nav
+-	Your Content nav
+-	Profile nav
+-	Add Question Button
+-	Search Bar
+-	Login and Signup options
+- About Nav
 
 
