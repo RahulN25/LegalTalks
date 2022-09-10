@@ -62,7 +62,40 @@ It Contains Fields such as First Name, Last Name, Email, Username, Password and 
   
   ![Extra User Details](/ss/extra-details.png)
   
+  This page will contain the extra details of user such as Gender, Date of Birth and Profile.
+  But the Profile picture Field is optional.
+
+
   
+## Lawyer Sign Up
+
+Lawyer must have cleared the Bar Examination for Signing Up on the Platform.
+We have read only access to the Bar Enrolment number and their connected email from the Bar Council of India. 
+
+The Lawyer just have to enter their Bar Enrolment Number and the email verification code will be sent to their linked email ID so that we can verify that lawyer is not using anyone else’s Bar number and trying to Sign Up into the platform.
+
+  ### a) Bar Enrollment Number
+  
+  ![Bar Enrollment Number](/ss/bar-enrollment-number.png)
+  On this page the lawyer has to enter their valid Bar Enrolment Number. After Entering a valid a Bar Enrolment Number. The Lawyer will redirected to the Email           verification page
+  
+  ### b) Email Verification
+  
+  ![Email Verification](/ss/email-verfication.png)
+  
+  After Entering the Valid Bar Enrolment Number the user will receive a 6 digit numeric code on the email which is linked to the Bar Enrolment Number. User have to       Enter that code to get verified.
+  
+  ### c) Advocate Sign Up
+  
+  ![Advocate Sign Up](/ss/advocate-signup.png)
+  
+  After Email Verification the lawyer will get Advocate Sign Up Page where he/she have Enter Details:
+  First Name, Last Name, Username, Password, Confirm Password the Email will be automatically fetched from the server side so the user don’t have to re-enter the email   id but he don’t want to use that email id for Signing up he/she can change it.
+  After Entering valid credentials and clicking on Sign Up Button the Lawyer will be redirected to the Profile Details Page. 
+
+
+
+
 
 
 
