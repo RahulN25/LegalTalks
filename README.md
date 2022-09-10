@@ -52,6 +52,19 @@ Each Question has one category such as Business Law, Civil Law, Consumer Law, Cr
 Filter Categories can be used to the select multiple categories at time for filtering the questions it is very useful for users who wants see the question related the only specific Law. By default it is collapsed so for viewing the categories user have press on the Filter Categories button.
 
 
+## User Sign Up
+
+![User Sign Up](ss/user-signup.png)
+
+It Contains Fields such as First Name, Last Name, Email, Username, Password and Confirm password.
+
+  ### Extra User Details
+  
+  ![Extra User Details](/ss/extra-details.png)
+  
+  
+
+
 
 
 
