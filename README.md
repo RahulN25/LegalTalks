@@ -74,18 +74,18 @@ We have read only access to the Bar Enrolment number and their connected email f
 
 The Lawyer just have to enter their Bar Enrolment Number and the email verification code will be sent to their linked email ID so that we can verify that lawyer is not using anyone else’s Bar number and trying to Sign Up into the platform.
 
-  ### a) Bar Enrollment Number
+  ### A) Bar Enrollment Number
   
   ![Bar Enrollment Number](/ss/bar-enrollment-number.png)
   On this page the lawyer has to enter their valid Bar Enrolment Number. After Entering a valid a Bar Enrolment Number. The Lawyer will redirected to the Email           verification page
   
-  ### b) Email Verification
+  ### B) Email Verification
   
   ![Email Verification](/ss/email-verification.png)
   
   After Entering the Valid Bar Enrolment Number the user will receive a 6 digit numeric code on the email which is linked to the Bar Enrolment Number. User have to       Enter that code to get verified.
   
-  ### c) Advocate Sign Up
+  ### C) Advocate Sign Up
   
   ![Advocate Sign Up](/ss/advocate-signup.png)
   
@@ -130,6 +130,61 @@ Your content page contains all the questions and answers asked and answered by t
 By clicking on any question from homepage or your content page you will go to the detail view of that question. In which at the top there will be question card of that question and after there will be answers given by various lawyers.
 On the question card there will be upvote and downvote buttons, Answer Button and report Button. If the question is he asked by you then you will also get Edit and Delete buttons there.
 On the Answer card you will also have upvote and downvote buttons, and if the answer is given by you then you will also get Edit and Delete Button.
+
+## 11) Question Search
+
+![Question Search](/ss/search-result-jpg)
+
+Search on the navigation bar can be used to search for the previously asked questions. You have to Enter the keywords and click on search icon then matching question will be displayed and when you will click on the card you will be redirected to the detail view of that question.
+
+## 12) Modals
+
+  ### A) Add Question Modal
+  
+  ![Add Question Modal](/ss/question-modal.jpg)
+  
+  User can Activate the Modal by clicking on Plus Button present on the navigation bar or user can simply click on the what is your question input field present on the   homepage. Both the methods will make the Question Modal Popup. 
+
+  The question modal has Anonymous Function, Choose Category, Question Title and Question Detail Fields. User can use the Anonymous Function to hide their Identity.     User can choose any one category which fits their question from the given 10 Categories. In Question Title user can add their Question and then they can use the       Question Detail Field to explain it further. 
+  
+  ### B) Edit Question Modal
+  
+  ![Edit Question Modal](/ss/edit-question-modal.jpg)
+  
+  Using Edit Question function user can Edit their previously asked questions. By Clicking on the Edit Button present on the Question Card it make Edit Question Modal   Pop-Up. In Edit Question Modal User can Edit the Title of Question and Detail Of Question.
+  
+  ### C) Answer Modal
+  
+  ![Answer Modal](/ss/answer-modal.jpg)
+  
+  Answer Modal can be used to Answer the question. User can Activate the modal by clicking on the Answer Button present on any question card. Answer card only           contained one Answer text area field which can be used to write your answer.
+  
+  ### D) Delete Modal
+  
+  ![Delete Modal](/ss/delete-modal.jpg)
+  
+  You can Activate the Delete Modal by clicking the Delete Button Present on the Question/Answer Card from either Your Content Page or Question Detail View Page.         Delete Modal can be used to Delete the Question asked by user/lawyer and answer given by a lawyer.
+  
+  ### E) Report Modal
+  
+  ![Report Modal](/ss/report-modal.jpg)
+  
+  Report modal can be used for reporting the inappropriate questions. Report Modal can be activated by pressing the report Button present on the top-left side of the     question card.
+
+
+## 13) Upvote and Downvote
+
+![Upvote and Downvote](/ss/upvote-downvote.png)
+
+The Upvote button is indicated by Up arrow and the Downvote button is indicated by Down arrow. The Upvote and Downvote buttons are present on every Question and Answer Cards. 
+Ff user wants to upvote the question/answer user can press up arrow button or if user wants to downvote the question/answer user can click on down arrow button as per his choice. If the answer has more upvotes as compared to downvotes then counter will display positive number or else counter will display zero or negative which indicates the downvotes
+
+
+
+
+  
+
+
 
 
 
