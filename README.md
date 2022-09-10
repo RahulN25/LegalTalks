@@ -133,7 +133,7 @@ On the Answer card you will also have upvote and downvote buttons, and if the an
 
 ## 11) Question Search
 
-![Question Search](/ss/search-result-jpg)
+![Question Search](/ss/search-result.jpg)
 
 Search on the navigation bar can be used to search for the previously asked questions. You have to Enter the keywords and click on search icon then matching question will be displayed and when you will click on the card you will be redirected to the detail view of that question.
 
