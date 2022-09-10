@@ -2,7 +2,7 @@
 
 **Legal Talks is a Q&amp;A platform where anyone having a legal query can get satisfying and appropriate answers and suggestions from certified lawyers. Anyone who has a legal query can ask the query in concerned domain (such as Property, Finance, Disputes, Criminal Offense, etc.) and certified lawyers can answer and provide guidance to the query, leaving the choice to the querier to select the appropriate response for his query.**
 
-## Navbar
+## 1) Navbar
 
 ![Navbar](/ss/navbar.png)
 
@@ -17,7 +17,7 @@ Navigation bar Contains Following Elements starting from left :
 -	Login and Signup options
 - About Nav
 
-## Question Card
+## 2) Question Card
 
 ![Question Card](/ss/question-card.jpg)
 
@@ -33,7 +33,7 @@ Every Question has a separate card which will contain following :
 -	Answer Button which can be used to answer the question
 -	Count of the answers the question has received.
 
-## Homepage
+## 3) Homepage
 
 ![Homepage](/ss/homepage.jpg)
 
@@ -44,7 +44,7 @@ Legal Talks Homepage contains :
 -	Question Card
 -	Filter Categories Section
 
-## Filter Categories Feature
+## 4) Filter Categories Feature
 
 ![Filter Categories](/ss/filter-categories.png)
 
@@ -52,7 +52,7 @@ Each Question has one category such as Business Law, Civil Law, Consumer Law, Cr
 Filter Categories can be used to the select multiple categories at time for filtering the questions it is very useful for users who wants see the question related the only specific Law. By default it is collapsed so for viewing the categories user have press on the Filter Categories button.
 
 
-## User Sign Up
+## 5) User Sign Up
 
 ![User Sign Up](ss/user-signup.png)
 
@@ -67,7 +67,7 @@ It Contains Fields such as First Name, Last Name, Email, Username, Password and 
 
 
   
-## Lawyer Sign Up
+## 6) Lawyer Sign Up
 
 Lawyer must have cleared the Bar Examination for Signing Up on the Platform.
 We have read only access to the Bar Enrolment number and their connected email from the Bar Council of India. 
@@ -81,7 +81,7 @@ The Lawyer just have to enter their Bar Enrolment Number and the email verificat
   
   ### b) Email Verification
   
-  ![Email Verification](/ss/email-verfication.png)
+  ![Email Verification](/ss/email-verification.png)
   
   After Entering the Valid Bar Enrolment Number the user will receive a 6 digit numeric code on the email which is linked to the Bar Enrolment Number. User have to       Enter that code to get verified.
   
@@ -92,6 +92,48 @@ The Lawyer just have to enter their Bar Enrolment Number and the email verificat
   After Email Verification the lawyer will get Advocate Sign Up Page where he/she have Enter Details:
   First Name, Last Name, Username, Password, Confirm Password the Email will be automatically fetched from the server side so the user don’t have to re-enter the email   id but he don’t want to use that email id for Signing up he/she can change it.
   After Entering valid credentials and clicking on Sign Up Button the Lawyer will be redirected to the Profile Details Page. 
+  
+  ### D) Laywer Profile Details
+  
+  ![Lawyer Profile Details](/ss/lawyer-profile-details.png)
+  
+  This is the last page of Lawyer Sign Up here you just have to enter profile details:
+  Gender, Date of Birth, Phone Number and Profile Picture. The Profile Picture is Optional
+  
+
+## 7) User Profile
+
+![User Profile](/ss/user-profile.png)
+
+User Profile has two page one is View Page and Other is Edit Page
+On The View Page User can just view their details and cannot edit it Editing/Updating the details can be done by going to the Edit page by clicking the Edit Button it will redirect the user to the edit page. User can edit various details such as username, email, phone number, password, and profile picture
+
+
+## 8) Lawyer Profile
+
+![Lawyer Profile](/ss/lawyer-profile.png)
+
+Lawyer can view their profile by clicking on the profile nav from the navbar. Lawyer Profile also has two pages one is readonly and other is for updating the details Lawyer profile has a icon that indicates that they are a verified lawyer.
+Lawyer can edit details such as username, email address, phone number, password and profile image.
+
+
+## 9) Your Content
+
+![Your Content](/ss/your-content.jpg)
+
+Your content page contains all the questions and answers asked and answered by the user in one place. User can use the By Content Type Filter to sort the content according to their need they can sort the questions and answers such as All Types, Questions asked, Answers. User can also filter question as Newest First and Oldest First. From Your Content page user can Edit and Delete their questions and answers by simply clicking on the Edit and Delete Button.
+
+## 10) Question Detail View Page
+
+![Question Detail View Page](/ss/question-detail-view.jpg)
+
+By clicking on any question from homepage or your content page you will go to the detail view of that question. In which at the top there will be question card of that question and after there will be answers given by various lawyers.
+On the question card there will be upvote and downvote buttons, Answer Button and report Button. If the question is he asked by you then you will also get Edit and Delete buttons there.
+On the Answer card you will also have upvote and downvote buttons, and if the answer is given by you then you will also get Edit and Delete Button.
+
+
+
+
 
 
 
